@@ -1,0 +1,2149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ABE7B2">
+    <title>Green Care - Natural Skincare</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="#" id="manifest-placeholder">
+    
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary: #ABE7B2;
+            --primary-dark: #8fd49a;
+            --text-dark: #2d3436;
+            --bg-light: #f8f9fa;
+        }
+        
+        body {
+            padding-bottom: 70px;
+            background-color: var(--bg-light);
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 8px 0;
+        }
+        
+        .bottom-nav .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #6c757d;
+        }
+        
+        .bottom-nav .nav-item.active {
+            color: var(--primary-dark);
+        }
+        
+        .bottom-nav .nav-item i {
+            font-size: 22px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .bottom-nav .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .bottom-nav .badge {
+            position: absolute;
+            top: 5px;
+            right: 50%;
+            transform: translateX(12px);
+            background-color: #dc3545;
+        }
+        
+        /* Header */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0 10px;
+            font-size: 14px;
+        }
+        
+        /* Product Cards */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            position: relative;
+            padding-top: 100%;
+            background: var(--bg-light);
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .wishlist-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .wishlist-btn i {
+            color: #dc3545;
+            font-size: 18px;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+        
+        .product-rating {
+            font-size: 13px;
+            color: #ffc107;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        /* Category Pills */
+        .category-pills {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        
+        .category-pills::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-pill {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary-dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-pill.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Buttons */
+        .btn-primary-custom {
+            background: var(--primary);
+            border: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary-custom:hover {
+            background: var(--primary-dark);
+            color: white;
+        }
+        
+        /* Pages */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Ingredient Card */
+        .ingredient-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .ingredient-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        /* Quiz */
+        .quiz-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quiz-option:hover, .quiz-option.selected {
+            border-color: var(--primary);
+            background: #f0faf2;
+        }
+        
+        /* Cart */
+        .cart-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: var(--bg-light);
+        }
+        
+        .cart-item-info {
+            flex: 1;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: var(--primary);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        /* Review */
+        .review-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .rating-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .rating-bar {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        
+        .rating-fill {
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        /* Profile */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+        
+        .profile-menu {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .profile-menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .profile-menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .profile-menu-item:hover {
+            background: var(--bg-light);
+        }
+        
+        /* Modal */
+        .modal-header {
+            background: var(--primary);
+            color: var(--text-dark);
+        }
+        
+        /* Before After Slider */
+        .before-after-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .before-after-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .after-image {
+            clip-path: inset(0 50% 0 0);
+        }
+        
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: white;
+            cursor: ew-resize;
+        }
+        
+        .slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Loyalty Points */
+        .points-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .points-amount {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .tier-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--bg-light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 576px) {
+            .app-header h1 {
+                font-size: 24px;
+            }
+            
+            .product-title {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Home Page -->
+<div id="homePage" class="page active">
+    <div class="app-header">
+        <h1 class="mb-0"><i class="bi bi-flower1"></i> Green Care</h1>
+        <p class="mb-0" style="font-size: 14px; opacity: 0.9;">Natural Beauty, Healthy Skin</p>
+        <div class="search-box">
+            <i class="bi bi-search" style="color: #999;"></i>
+            <input type="text" id="searchInput" placeholder="Cari produk atau bahan aktif...">
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- Category Filter -->
+        <div class="category-pills" id="categoryPills">
+            <div class="category-pill active" data-category="all">Semua</div>
+            <div class="category-pill" data-category="cleanser">Cleanser</div>
+            <div class="category-pill" data-category="toner">Toner</div>
+            <div class="category-pill" data-category="serum">Serum</div>
+            <div class="category-pill" data-category="moisturizer">Moisturizer</div>
+            <div class="category-pill" data-category="sunscreen">Sunscreen</div>
+        </div>
+        
+        <!-- Filter Button -->
+        <button class="btn btn-sm btn-outline-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filterModal">
+            <i class="bi bi-funnel"></i> Filter Lanjut
+        </button>
+        
+        <!-- Products Grid -->
+        <div class="row" id="productsGrid">
+            <!-- Products will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Education Page -->
+<div id="educationPage" class="page">
+    <div class="app-header">
+        <h1 class="mb-0"><i class="bi bi-book"></i> Edukasi</h1>
+        <p class="mb-0" style="font-size: 14px; opacity: 0.9;">Pelajari bahan aktif hijau</p>
+    </div>
+    
+    <div class="container">
+        <ul class="nav nav-tabs mb-3" id="eduTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#ingredientsTab">Bahan Aktif</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#videosTab">Video Edukasi</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#quizTab">Skin Quiz</a>
+            </li>
+        </ul>
+        
+        <div class="tab-content">
+            <!-- Ingredients Tab -->
+            <div class="tab-pane fade show active" id="ingredientsTab">
+                <div id="ingredientsList">
+                    <!-- Ingredients will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Videos Tab -->
+            <div class="tab-pane fade" id="videosTab">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/WwxoWrHymeY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/c3HFwOH37NU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/OOopIkClpw4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            
+            <!-- Quiz Tab -->
+            <div class="tab-pane fade" id="quizTab">
+                <div id="quizContainer">
+                    <h5 class="mb-3">Temukan Rutinitas yang Tepat untuk Kulitmu</h5>
+                    <div id="quizContent">
+                        <!-- Quiz will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Community Page -->
+<div id="communityPage" class="page">
+    <div class="app-header">
+        <h1 class="mb-0"><i class="bi bi-people"></i> Komunitas</h1>
+        <p class="mb-0" style="font-size: 14px; opacity: 0.9;">Berbagi pengalaman & transformasi</p>
+    </div>
+    
+    <div class="container">
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#reviewsTab">Ulasan</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#galleryTab">Galeri Transformasi</a>
+            </li>
+        </ul>
+        
+        <div class="tab-content">
+            <!-- Reviews Tab -->
+            <div class="tab-pane fade show active" id="reviewsTab">
+                <button class="btn btn-primary-custom w-100 mb-3" data-bs-toggle="modal" data-bs-target="#addReviewModal">
+                    <i class="bi bi-plus-circle"></i> Tulis Ulasan
+                </button>
+                <div id="reviewsList">
+                    <!-- Reviews will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Gallery Tab -->
+            <div class="tab-pane fade" id="galleryTab">
+                <button class="btn btn-primary-custom w-100 mb-3" data-bs-toggle="modal" data-bs-target="#addTransformationModal">
+                    <i class="bi bi-upload"></i> Upload Transformasi
+                </button>
+                <div id="transformationGallery">
+                    <!-- Transformations will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Page -->
+<div id="cartPage" class="page">
+    <div class="app-header">
+        <h1 class="mb-0"><i class="bi bi-cart"></i> Keranjang</h1>
+        <p class="mb-0" style="font-size: 14px; opacity: 0.9;">Review pesanan Anda</p>
+    </div>
+    
+    <div class="container">
+        <div id="cartItems">
+            <!-- Cart items will be loaded here -->
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">Rp 0</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Ongkir:</span>
+                    <span>Rp 15.000</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Gunakan Poin:</span>
+                    <input type="number" id="usePoints" class="form-control form-control-sm" style="width: 100px;" min="0" value="0">
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <strong>Total:</strong>
+                    <strong id="total" style="color: var(--primary-dark); font-size: 20px;">Rp 0</strong>
+                </div>
+                <button class="btn btn-primary-custom w-100" onclick="checkout()">
+                    <i class="bi bi-check-circle"></i> Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Page -->
+<div id="profilePage" class="page">
+    <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">GC</div>
+        <h5 id="profileName">Green Care User</h5>
+        <p class="mb-0" style="font-size: 14px; opacity: 0.9;" id="profileEmail">user@greencare.com</p>
+    </div>
+    
+    <div class="container">
+        <!-- Points Card -->
+        <div class="points-card">
+            <div class="tier-badge" id="tierBadge">Silver Member</div>
+            <div class="points-amount" id="userPoints">1,250</div>
+            <small>Verdant Rewards Points</small>
+            <div class="mt-3">
+                <small>250 poin lagi menuju Gold Member!</small>
+                <div class="progress mt-2" style="height: 8px; background: rgba(255,255,255,0.3);">
+                    <div class="progress-bar" style="width: 83%; background: white;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu -->
+        <div class="profile-menu">
+            <div class="profile-menu-item" onclick="showPage('orderHistory')">
+                <div>
+                    <i class="bi bi-box-seam me-2"></i> Riwayat Pesanan
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+            <div class="profile-menu-item" onclick="showWishlist()">
+                <div>
+                    <i class="bi bi-heart me-2"></i> Wishlist
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+            <div class="profile-menu-item" data-bs-toggle="modal" data-bs-target="#journalModal">
+                <div>
+                    <i class="bi bi-journal-text me-2"></i> Skincare Journal
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+            <div class="profile-menu-item">
+                <div>
+                    <i class="bi bi-gear me-2"></i> Pengaturan
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+        </div>
+        
+        <button class="btn btn-outline-danger w-100 mt-3">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+    </div>
+</div>
+
+<!-- Product Detail Modal -->
+<div class="modal fade" id="productModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen-sm-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalTitle">Detail Produk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="productModalBody">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Filter Produk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Jenis Kulit</h6>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="oily" id="skinOily">
+                        <label class="form-check-label" for="skinOily">Berminyak</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="dry" id="skinDry">
+                        <label class="form-check-label" for="skinDry">Kering</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="combination" id="skinCombo">
+                        <label class="form-check-label" for="skinCombo">Kombinasi</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="sensitive" id="skinSens">
+                        <label class="form-check-label" for="skinSens">Sensitif</label>
+                    </div>
+                </div>
+                
+                <h6>Masalah Kulit</h6>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="acne" id="concernAcne">
+                        <label class="form-check-label" for="concernAcne">Jerawat</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="aging" id="concernAging">
+                        <label class="form-check-label" for="concernAging">Penuaan</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="pigmentation" id="concernPig">
+                        <label class="form-check-label" for="concernPig">Pigmentasi</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="dullness" id="concernDull">
+                        <label class="form-check-label" for="concernDull">Kusam</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="resetFilters()">Reset</button>
+                <button type="button" class="btn btn-primary-custom" onclick="applyFilters()" data-bs-dismiss="modal">Terapkan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Review Modal -->
+<div class="modal fade" id="addReviewModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tulis Ulasan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Pilih Produk</label>
+                    <select class="form-select" id="reviewProduct">
+                        <option value="0">Green Tea Cleanser</option>
+                        <option value="1">Aloe Vera Toner</option>
+                        <option value="2">Centella Serum</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Rating Tekstur</label>
+                    <div class="rating-stars" data-rating="texture">
+                        <i class="bi bi-star" data-value="1"></i>
+                        <i class="bi bi-star" data-value="2"></i>
+                        <i class="bi bi-star" data-value="3"></i>
+                        <i class="bi bi-star" data-value="4"></i>
+                        <i class="bi bi-star" data-value="5"></i>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Rating Efek</label>
+                    <div class="rating-stars" data-rating="effect">
+                        <i class="bi bi-star" data-value="1"></i>
+                        <i class="bi bi-star" data-value="2"></i>
+                        <i class="bi bi-star" data-value="3"></i>
+                        <i class="bi bi-star" data-value="4"></i>
+                        <i class="bi bi-star" data-value="5"></i>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Rating Aroma</label>
+                    <div class="rating-stars" data-rating="aroma">
+                        <i class="bi bi-star" data-value="1"></i>
+                        <i class="bi bi-star" data-value="2"></i>
+                        <i class="bi bi-star" data-value="3"></i>
+                        <i class="bi bi-star" data-value="4"></i>
+                        <i class="bi bi-star" data-value="5"></i>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Ulasan Anda</label>
+                    <textarea class="form-control" id="reviewText" rows="4" placeholder="Ceritakan pengalaman Anda..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary-custom" onclick="submitReview()">Kirim Ulasan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Transformation Modal -->
+<div class="modal fade" id="addTransformationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload Transformasi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Foto Before</label>
+                    <input type="file" class="form-control" id="beforeImage" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Foto After</label>
+                    <input type="file" class="form-control" id="afterImage" accept="image/*">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Cerita Transformasi</label>
+                    <textarea class="form-control" id="transformationStory" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Durasi (bulan)</label>
+                    <input type="number" class="form-control" id="transformationDuration" min="1" value="3">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary-custom" onclick="submitTransformation()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Journal Modal -->
+<div class="modal fade" id="journalModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Skincare Journal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-primary-custom w-100 mb-3" onclick="addJournalEntry()">
+                    <i class="bi bi-plus-circle"></i> Tambah Catatan
+                </button>
+                <div id="journalEntries">
+                    <!-- Journal entries will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+    <div class="d-flex">
+        <div class="nav-item active" onclick="showPage('homePage')">
+            <i class="bi bi-house-fill"></i>
+            <span>Beranda</span>
+        </div>
+        <div class="nav-item" onclick="showPage('educationPage')">
+            <i class="bi bi-book"></i>
+            <span>Edukasi</span>
+        </div>
+        <div class="nav-item" onclick="showPage('communityPage')">
+            <i class="bi bi-people"></i>
+            <span>Komunitas</span>
+        </div>
+        <div class="nav-item" onclick="showPage('cartPage')">
+            <div style="position: relative;">
+                <i class="bi bi-cart"></i>
+                <span class="badge" id="cartBadge">0</span>
+            </div>
+            <span>Keranjang</span>
+        </div>
+        <div class="nav-item" onclick="showPage('profilePage')">
+            <i class="bi bi-person"></i>
+            <span>Profil</span>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Anime.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+<script>
+// Data Products
+const products = [
+    {
+        id: 1,
+        name: "Green Tea Cleanser",
+        price: 125000,
+        category: "cleanser",
+        rating: 4.8,
+        image: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400",
+        badge: "Best Seller",
+        skinType: ["oily", "combination"],
+        concerns: ["acne", "dullness"],
+        ingredients: ["Green Tea Extract", "Centella Asiatica", "Tea Tree Oil"],
+        description: "Pembersih wajah lembut dengan ekstrak teh hijau untuk mengangkat kotoran tanpa menghilangkan minyak alami kulit.",
+        howToUse: "Aplikasikan pada wajah basah, pijat lembut, bilas dengan air.",
+        reviews: 1250
+    },
+    {
+        id: 2,
+        name: "Aloe Vera Toner",
+        price: 98000,
+        category: "toner",
+        rating: 4.7,
+        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400",
+        badge: "New",
+        skinType: ["dry", "sensitive"],
+        concerns: ["dullness"],
+        ingredients: ["Aloe Vera", "Rose Water", "Hyaluronic Acid"],
+        description: "Toner menyegarkan dengan aloe vera untuk menenangkan dan melembabkan kulit.",
+        howToUse: "Aplikasikan dengan kapas atau tekan lembut pada wajah setelah cleansing.",
+        reviews: 890
+    },
+    {
+        id: 3,
+        name: "Centella Serum",
+        price: 185000,
+        category: "serum",
+        rating: 4.9,
+        image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400",
+        badge: "Top Rated",
+        skinType: ["sensitive", "combination"],
+        concerns: ["acne", "pigmentation"],
+        ingredients: ["Centella Asiatica", "Niacinamide", "Panthenol"],
+        description: "Serum penenang dengan centella untuk memperbaiki skin barrier dan meredakan kemerahan.",
+        howToUse: "Aplikasikan 2-3 tetes pada wajah setelah toner, tepuk lembut hingga meresap.",
+        reviews: 2100
+    },
+    {
+        id: 4,
+        name: "Moringa Moisturizer",
+        price: 145000,
+        category: "moisturizer",
+        rating: 4.6,
+        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400",
+        skinType: ["dry", "combination"],
+        concerns: ["dullness"],
+        ingredients: ["Moringa Extract", "Shea Butter", "Vitamin E"],
+        description: "Pelembab ringan dengan moringa untuk nutrisi dan kelembaban optimal.",
+        howToUse: "Aplikasikan pada wajah dan leher setelah serum.",
+        reviews: 756
+    },
+    {
+        id: 5,
+        name: "Matcha Clay Mask",
+        price: 110000,
+        category: "cleanser",
+        rating: 4.5,
+        image: "https://images.unsplash.com/photo-1570554886111-e80fcca6a029?w=400",
+        skinType: ["oily", "combination"],
+        concerns: ["acne"],
+        ingredients: ["Matcha Powder", "Kaolin Clay", "Tea Tree"],
+        description: "Masker detox dengan matcha untuk membersihkan pori dan mengontrol minyak.",
+        howToUse: "Aplikasikan tipis, diamkan 10-15 menit, bilas hingga bersih. Gunakan 2x seminggu.",
+        reviews: 623
+    },
+    {
+        id: 6,
+        name: "Turmeric Brightening Serum",
+        price: 165000,
+        category: "serum",
+        rating: 4.7,
+        image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?w=400",
+        skinType: ["all"],
+        concerns: ["pigmentation", "dullness"],
+        ingredients: ["Turmeric Extract", "Vitamin C", "Licorice Root"],
+        description: "Serum pencerah dengan kunyit untuk menyamarkan noda hitam dan meratakan warna kulit.",
+        howToUse: "Gunakan 2-3 tetes pada malam hari setelah toner.",
+        reviews: 1420
+    },
+    {
+        id: 7,
+        name: "Bamboo Charcoal Sunscreen SPF 50",
+        price: 135000,
+        category: "sunscreen",
+        rating: 4.8,
+        image: "https://images.unsplash.com/photo-1556228852-80a75796eea1?w=400",
+        badge: "Best Seller",
+        skinType: ["oily", "combination"],
+        concerns: ["acne"],
+        ingredients: ["Bamboo Charcoal", "Zinc Oxide", "Green Tea"],
+        description: "Sunscreen ringan dengan bamboo charcoal untuk perlindungan maksimal tanpa whitecast.",
+        howToUse: "Aplikasikan sebagai langkah terakhir skincare pagi, re-apply setiap 2-3 jam.",
+        reviews: 1890
+    },
+    {
+        id: 8,
+        name: "Cucumber Hydrating Gel",
+        price: 95000,
+        category: "moisturizer",
+        rating: 4.6,
+        image: "https://images.unsplash.com/photo-1571875257727-256c39da42af?w=400",
+        skinType: ["oily", "sensitive"],
+        concerns: ["dullness"],
+        ingredients: ["Cucumber Extract", "Aloe Vera", "Hyaluronic Acid"],
+        description: "Gel pelembab dengan mentimun untuk sensasi segar dan terhidrasi sepanjang hari.",
+        howToUse: "Aplikasikan pada wajah bersih, tepuk lembut hingga meresap.",
+        reviews: 945
+    }
+];
+
+// Ingredients Database
+const ingredients = [
+    {
+        name: "Green Tea Extract",
+        icon: "🍵",
+        origin: "Camellia sinensis dari Jepang & China",
+        benefits: "Antioksidan kuat, anti-inflamasi, mengontrol sebum",
+        clinicalData: "Terbukti mengurangi produksi sebum hingga 60% dalam 8 minggu",
+        products: [1, 7]
+    },
+    {
+        name: "Centella Asiatica",
+        icon: "🌿",
+        origin: "Asia Tenggara & India",
+        benefits: "Mempercepat penyembuhan luka, menenangkan, memperkuat skin barrier",
+        clinicalData: "Meningkatkan sintesis kolagen dan mengurangi kemerahan 70%",
+        products: [1, 3]
+    },
+    {
+        name: "Aloe Vera",
+        icon: "🌵",
+        origin: "Afrika Utara & Mediterania",
+        benefits: "Melembabkan intensif, menenangkan iritasi, anti-inflamasi",
+        clinicalData: "Meningkatkan hidrasi kulit hingga 80% setelah 2 minggu penggunaan",
+        products: [2, 8]
+    },
+    {
+        name: "Turmeric Extract",
+        icon: "🧡",
+        origin: "India & Indonesia",
+        benefits: "Mencerahkan, anti-inflamasi, antioksidan, menyamarkan bekas jerawat",
+        clinicalData: "Mengurangi hiperpigmentasi hingga 50% dalam 12 minggu",
+        products: [6]
+    },
+    {
+        name: "Niacinamide",
+        icon: "💧",
+        origin: "Vitamin B3 (sintetis stabil)",
+        benefits: "Mencerahkan, mengontrol sebum, memperkecil pori, anti-aging",
+        clinicalData: "Mengurangi hiperpigmentasi 35-68% dan meningkatkan elastisitas kulit",
+        products: [3, 6]
+    },
+    {
+        name: "Bamboo Charcoal",
+        icon: "🎋",
+        origin: "Bambu dari Korea & Jepang",
+        benefits: "Detoksifikasi, menyerap minyak berlebih, membersihkan pori",
+        clinicalData: "Menyerap toksin dan polutan hingga 1000x beratnya sendiri",
+        products: [7]
+    }
+];
+
+// Quiz Questions
+const quizQuestions = [
+    {
+        question: "Bagaimana kondisi kulit Anda di pagi hari?",
+        options: [
+            { text: "Berminyak di seluruh wajah", value: "oily" },
+            { text: "Kering dan terasa kencang", value: "dry" },
+            { text: "Berminyak di T-zone, normal di pipi", value: "combination" },
+            { text: "Normal dan nyaman", value: "normal" }
+        ]
+    },
+    {
+        question: "Masalah kulit apa yang paling mengganggu?",
+        options: [
+            { text: "Jerawat dan komedo", value: "acne" },
+            { text: "Garis halus dan kerutan", value: "aging" },
+            { text: "Noda hitam dan warna tidak merata", value: "pigmentation" },
+            { text: "Kulit kusam dan lelah", value: "dullness" }
+        ]
+    },
+    {
+        question: "Seberapa sensitif kulit Anda?",
+        options: [
+            { text: "Sangat sensitif, mudah merah", value: "sensitive" },
+            { text: "Agak sensitif terhadap produk tertentu", value: "slightly-sensitive" },
+            { text: "Tidak sensitif", value: "not-sensitive" }
+        ]
+    },
+    {
+        question: "Berapa lama waktu yang Anda miliki untuk skincare?",
+        options: [
+            { text: "5-10 menit (rutinitas minimal)", value: "quick" },
+            { text: "15-20 menit (rutinitas lengkap)", value: "full" }
+        ]
+    }
+];
+
+// Initialize
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+let userPoints = parseInt(localStorage.getItem('userPoints')) || 1250;
+let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+let transformations = JSON.parse(localStorage.getItem('transformations')) || [];
+let currentQuizStep = 0;
+let quizAnswers = {};
+
+// App State
+let currentFilter = {
+    category: 'all',
+    skinType: [],
+    concerns: []
+};
+
+// Page Navigation
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+    
+    document.querySelectorAll('.bottom-nav .nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+    
+    // Animate page transition
+    anime({
+        targets: `#${pageId}`,
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 400,
+        easing: 'easeOutQuad'
+    });
+    
+    // Load page specific content
+    if (pageId === 'cartPage') loadCart();
+    if (pageId === 'educationPage') loadIngredients();
+    if (pageId === 'communityPage') loadReviews();
+    if (pageId === 'profilePage') updateProfile();
+}
+
+// Load Products
+function loadProducts() {
+    const grid = document.getElementById('productsGrid');
+    grid.innerHTML = '';
+    
+    let filteredProducts = products.filter(product => {
+        if (currentFilter.category !== 'all' && product.category !== currentFilter.category) {
+            return false;
+        }
+        if (currentFilter.skinType.length > 0) {
+            if (!product.skinType.some(type => currentFilter.skinType.includes(type))) {
+                return false;
+            }
+        }
+        if (currentFilter.concerns.length > 0) {
+            if (!product.concerns.some(concern => currentFilter.concerns.includes(concern))) {
+                return false;
+            }
+        }
+        return true;
+    });
+    
+    filteredProducts.forEach((product, index) => {
+        const isWishlisted = wishlist.includes(product.id);
+        const col = document.createElement('div');
+        col.className = 'col-6 col-md-4 col-lg-3';
+        col.innerHTML = `
+            <div class="product-card" style="opacity: 0;">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <button class="wishlist-btn" onclick="toggleWishlist(${product.id}, event)">
+                        <i class="bi bi-heart${isWishlisted ? '-fill' : ''}"></i>
+                    </button>
+                </div>
+                <div class="product-info" onclick="showProductDetail(${product.id})">
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                    <div class="product-rating">
+                        <i class="bi bi-star-fill"></i> ${product.rating} (${product.reviews})
+                    </div>
+                </div>
+            </div>
+        `;
+        grid.appendChild(col);
+        
+        // Animate product cards
+        anime({
+            targets: col.querySelector('.product-card'),
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 600,
+            delay: index * 50,
+            easing: 'easeOutQuad'
+        });
+    });
+}
+
+// Show Product Detail
+function showProductDetail(productId) {
+    const product = products.find(p => p.id === productId);
+    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+    
+    document.getElementById('productModalTitle').textContent = product.name;
+    document.getElementById('productModalBody').innerHTML = `
+        <img src="${product.image}" class="w-100 rounded mb-3" alt="${product.name}">
+        
+        <h5>Rp ${product.price.toLocaleString('id-ID')}</h5>
+        <div class="mb-3">
+            <span class="text-warning"><i class="bi bi-star-fill"></i> ${product.rating}</span>
+            <span class="text-muted ms-2">(${product.reviews} ulasan)</span>
+        </div>
+        
+        <h6>Deskripsi</h6>
+        <p>${product.description}</p>
+        
+        <h6>Bahan Aktif Utama</h6>
+        <div class="mb-3">
+            ${product.ingredients.map(ing => `
+                <span class="badge bg-success me-1 mb-1">${ing}</span>
+            `).join('')}
+        </div>
+        
+        <h6>Cocok untuk</h6>
+        <p>
+            <strong>Jenis Kulit:</strong> ${product.skinType.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(', ')}<br>
+            <strong>Masalah Kulit:</strong> ${product.concerns.map(c => c.charAt(0).toUpperCase() + c.slice(1)).join(', ')}
+        </p>
+        
+        <h6>Cara Pakai</h6>
+        <p>${product.howToUse}</p>
+        
+        <button class="btn btn-primary-custom w-100 mt-3" onclick="addToCart(${product.id})">
+            <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
+        </button>
+    `;
+    
+    modal.show();
+}
+
+// Wishlist
+function toggleWishlist(productId, event) {
+    event.stopPropagation();
+    const index = wishlist.indexOf(productId);
+    
+    if (index > -1) {
+        wishlist.splice(index, 1);
+    } else {
+        wishlist.push(productId);
+    }
+    
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    loadProducts();
+    
+    // Animation
+    anime({
+        targets: event.currentTarget,
+        scale: [1, 1.3, 1],
+        duration: 300,
+        easing: 'easeOutElastic(1, .5)'
+    });
+}
+
+// Cart Functions
+function addToCart(productId) {
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ id: productId, quantity: 1 });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+    
+    // Show toast notification
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = 'Produk ditambahkan ke keranjang!';
+    toast.style.cssText = 'position: fixed; top: 20px; right: 20px; background: var(--primary); color: white; padding: 15px 20px; border-radius: 10px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.2);';
+    document.body.appendChild(toast);
+    
+    anime({
+        targets: toast,
+        translateX: [100, 0],
+        opacity: [0, 1],
+        duration: 400,
+        easing: 'easeOutQuad',
+        complete: () => {
+            setTimeout(() => {
+                anime({
+                    targets: toast,
+                    opacity: 0,
+                    duration: 300,
+                    complete: () => toast.remove()
+                });
+            }, 2000);
+        }
+    });
+}
+
+function loadCart() {
+    const cartItems = document.getElementById('cartItems');
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = `
+            <div class="text-center py-5">
+                <i class="bi bi-cart-x" style="font-size: 48px; color: #ccc;"></i>
+                <p class="mt-3 text-muted">Keranjang Anda kosong</p>
+                <button class="btn btn-primary-custom" onclick="showPage('homePage')">Belanja Sekarang</button>
+            </div>
+        `;
+        updateCartTotal();
+        return;
+    }
+    
+    cartItems.innerHTML = cart.map(item => {
+        const product = products.find(p => p.id === item.id);
+        return `
+            <div class="cart-item">
+                <img src="${product.image}" class="cart-item-image" alt="${product.name}">
+                <div class="cart-item-info">
+                    <h6 class="mb-1">${product.name}</h6>
+                    <div class="text-success fw-bold">Rp ${product.price.toLocaleString('id-ID')}</div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(${product.id}, -1)">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${product.id}, 1)">+</button>
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${product.id})">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        `;
+    }).join('');
+    
+    updateCartTotal();
+}
+
+function updateQuantity(productId, change) {
+    const item = cart.find(i => i.id === productId);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromCart(productId);
+            return;
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+        updateCartBadge();
+    }
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();
+    updateCartBadge();
+}
+
+function updateCartTotal() {
+    let subtotal = 0;
+    cart.forEach(item => {
+        const product = products.find(p => p.id === item.id);
+        subtotal += product.price * item.quantity;
+    });
+    
+    const shipping = cart.length > 0 ? 15000 : 0;
+    const pointsUsed = parseInt(document.getElementById('usePoints')?.value || 0);
+    const pointsDiscount = pointsUsed * 100; // 1 poin = Rp 100
+    const total = subtotal + shipping - pointsDiscount;
+    
+    document.getElementById('subtotal').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+    document.getElementById('total').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+}
+
+function updateCartBadge() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById('cartBadge').textContent = totalItems;
+    document.getElementById('cartBadge').style.display = totalItems > 0 ? 'block' : 'none';
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Keranjang Anda kosong!');
+        return;
+    }
+    
+    const subtotal = cart.reduce((sum, item) => {
+        const product = products.find(p => p.id === item.id);
+        return sum + (product.price * item.quantity);
+    }, 0);
+    
+    // Add points (1% of purchase)
+    const earnedPoints = Math.floor(subtotal / 1000);
+    userPoints += earnedPoints;
+    localStorage.setItem('userPoints', userPoints);
+    
+    alert(`Checkout berhasil! Anda mendapat ${earnedPoints} poin.`);
+    
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+    loadCart();
+    updateProfile();
+}
+
+// Filters
+function applyFilters() {
+    currentFilter.skinType = [];
+    currentFilter.concerns = [];
+    
+    document.querySelectorAll('#filterModal .form-check-input:checked').forEach(checkbox => {
+        if (checkbox.value === 'oily' || checkbox.value === 'dry' || checkbox.value === 'combination' || checkbox.value === 'sensitive') {
+            currentFilter.skinType.push(checkbox.value);
+        } else {
+            currentFilter.concerns.push(checkbox.value);
+        }
+    });
+    
+    loadProducts();
+}
+
+function resetFilters() {
+    currentFilter = { category: 'all', skinType: [], concerns: [] };
+    document.querySelectorAll('#filterModal .form-check-input').forEach(checkbox => {
+        checkbox.checked = false;
+    });
+    loadProducts();
+}
+
+// Category Pills
+document.getElementById('categoryPills').addEventListener('click', (e) => {
+    if (e.target.classList.contains('category-pill')) {
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        currentFilter.category = e.target.dataset.category;
+        loadProducts();
+    }
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const grid = document.getElementById('productsGrid');
+    
+    if (searchTerm === '') {
+        loadProducts();
+        return;
+    }
+    
+    const filtered = products.filter(product => 
+        product.name.toLowerCase().includes(searchTerm) ||
+        product.ingredients.some(ing => ing.toLowerCase().includes(searchTerm))
+    );
+    
+    grid.innerHTML = '';
+    filtered.forEach((product, index) => {
+        const isWishlisted = wishlist.includes(product.id);
+        const col = document.createElement('div');
+        col.className = 'col-6 col-md-4 col-lg-3';
+        col.innerHTML = `
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+                    <button class="wishlist-btn" onclick="toggleWishlist(${product.id}, event)">
+                        <i class="bi bi-heart${isWishlisted ? '-fill' : ''}"></i>
+                    </button>
+                </div>
+                <div class="product-info" onclick="showProductDetail(${product.id})">
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-price">Rp ${product.price.toLocaleString('id-ID')}</div>
+                    <div class="product-rating">
+                        <i class="bi bi-star-fill"></i> ${product.rating} (${product.reviews})
+                    </div>
+                </div>
+            </div>
+        `;
+        grid.appendChild(col);
+    });
+});
+
+// Load Ingredients
+function loadIngredients() {
+    const list = document.getElementById('ingredientsList');
+    list.innerHTML = ingredients.map((ingredient, index) => `
+        <div class="ingredient-card" style="opacity: 0;">
+            <div class="d-flex align-items-start gap-3">
+                <div class="ingredient-icon">${ingredient.icon}</div>
+                <div class="flex-1">
+                    <h6 class="mb-2">${ingredient.name}</h6>
+                    <p class="mb-2 text-muted" style="font-size: 13px;">
+                        <strong>Asal:</strong> ${ingredient.origin}
+                    </p>
+                    <p class="mb-2" style="font-size: 14px;">
+                        <strong>Manfaat:</strong> ${ingredient.benefits}
+                    </p>
+                    <p class="mb-2 text-success" style="font-size: 13px;">
+                        <i class="bi bi-check-circle"></i> ${ingredient.clinicalData}
+                    </p>
+                    <button class="btn btn-sm btn-outline-success" onclick="showIngredientProducts(${index})">
+                        Lihat Produk (${ingredient.products.length})
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Animate cards
+    document.querySelectorAll('.ingredient-card').forEach((card, index) => {
+        anime({
+            targets: card,
+            opacity: [0, 1],
+            translateY: [30, 0],
+            duration: 600,
+            delay: index * 100,
+            easing: 'easeOutQuad'
+        });
+    });
+}
+
+function showIngredientProducts(ingredientIndex) {
+    const ingredient = ingredients[ingredientIndex];
+    const productIds = ingredient.products;
+    const relatedProducts = products.filter(p => productIds.includes(p.id));
+    
+    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+    document.getElementById('productModalTitle').textContent = `Produk dengan ${ingredient.name}`;
+    document.getElementById('productModalBody').innerHTML = `
+        <div class="mb-3">
+            <h6>${ingredient.name} ${ingredient.icon}</h6>
+            <p class="text-muted">${ingredient.benefits}</p>
+        </div>
+        ${relatedProducts.map(product => `
+            <div class="d-flex gap-3 mb-3 p-3 border rounded" onclick="showProductDetail(${product.id})" style="cursor: pointer;">
+                <img src="${product.image}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+                <div>
+                    <h6 class="mb-1">${product.name}</h6>
+                    <div class="text-success fw-bold">Rp ${product.price.toLocaleString('id-ID')}</div>
+                    <div class="text-warning"><i class="bi bi-star-fill"></i> ${product.rating}</div>
+                </div>
+            </div>
+        `).join('')}
+    `;
+    modal.show();
+}
+
+// Quiz Functions
+function loadQuiz() {
+    if (currentQuizStep >= quizQuestions.length) {
+        showQuizResults();
+        return;
+    }
+    
+    const question = quizQuestions[currentQuizStep];
+    document.getElementById('quizContent').innerHTML = `
+        <div class="mb-3">
+            <div class="progress mb-3" style="height: 8px;">
+                <div class="progress-bar" style="width: ${((currentQuizStep + 1) / quizQuestions.length) * 100}%; background: var(--primary);"></div>
+            </div>
+            <h6>Pertanyaan ${currentQuizStep + 1} dari ${quizQuestions.length}</h6>
+            <h5 class="mt-3 mb-4">${question.question}</h5>
+        </div>
+        ${question.options.map((option, index) => `
+            <div class="quiz-option" onclick="selectQuizAnswer('${question.question}', '${option.value}', this)">
+                <div class="d-flex align-items-center">
+                    <div class="me-3" style="width: 30px; height: 30px; border-radius: 50%; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center;">
+                        ${String.fromCharCode(65 + index)}
+                    </div>
+                    <div>${option.text}</div>
+                </div>
+            </div>
+        `).join('')}
+    `;
+}
+
+function selectQuizAnswer(question, value, element) {
+    quizAnswers[question] = value;
+    
+    // Visual feedback
+    document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+    element.classList.add('selected');
+    
+    setTimeout(() => {
+        currentQuizStep++;
+        loadQuiz();
+    }, 300);
+}
+
+function showQuizResults() {
+    // Analyze answers
+    const skinType = quizAnswers[quizQuestions[0].question] || 'combination';
+    const concern = quizAnswers[quizQuestions[1].question] || 'dullness';
+    const sensitivity = quizAnswers[quizQuestions[2].question] || 'not-sensitive';
+    const timeAvailable = quizAnswers[quizQuestions[3].question] || 'full';
+    
+    // Recommend products
+    let recommendedProducts = products.filter(p => 
+        p.skinType.includes(skinType) && p.concerns.includes(concern)
+    );
+    
+    if (recommendedProducts.length < 4) {
+        recommendedProducts = products.filter(p => p.skinType.includes(skinType)).slice(0, 4);
+    }
+    
+    // Morning routine
+    const morningRoutine = [
+        recommendedProducts.find(p => p.category === 'cleanser') || products[0],
+        recommendedProducts.find(p => p.category === 'toner') || products[1],
+        recommendedProducts.find(p => p.category === 'serum') || products[2],
+        recommendedProducts.find(p => p.category === 'moisturizer') || products[3],
+        recommendedProducts.find(p => p.category === 'sunscreen') || products[6]
+    ];
+    
+    // Night routine
+    const nightRoutine = [
+        recommendedProducts.find(p => p.category === 'cleanser') || products[0],
+        recommendedProducts.find(p => p.category === 'toner') || products[1],
+        recommendedProducts.find(p => p.category === 'serum') || products[2],
+        recommendedProducts.find(p => p.category === 'moisturizer') || products[3]
+    ];
+    
+    const totalPrice = [...new Set([...morningRoutine, ...nightRoutine])].reduce((sum, p) => sum + p.price, 0);
+    
+    document.getElementById('quizContent').innerHTML = `
+        <div class="text-center mb-4">
+            <i class="bi bi-check-circle-fill" style="font-size: 48px; color: var(--primary);"></i>
+            <h5 class="mt-3">Rutinitas Sempurna untuk Anda!</h5>
+            <p class="text-muted">Berdasarkan profil kulit Anda</p>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6><i class="bi bi-sunrise"></i> Rutinitas Pagi</h6>
+                <ol class="mb-0">
+                    ${morningRoutine.map(p => `<li>${p.name} - Rp ${p.price.toLocaleString('id-ID')}</li>`).join('')}
+                </ol>
+            </div>
+        </div>
+        
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6><i class="bi bi-moon-stars"></i> Rutinitas Malam</h6>
+                <ol class="mb-0">
+                    ${nightRoutine.map(p => `<li>${p.name} - Rp ${p.price.toLocaleString('id-ID')}</li>`).join('')}
+                </ol>
+            </div>
+        </div>
+        
+        <div class="alert alert-success">
+            <strong>Total Investasi:</strong> Rp ${totalPrice.toLocaleString('id-ID')}
+        </div>
+        
+        <button class="btn btn-primary-custom w-100 mb-2" onclick="buyAllRoutine()">
+            <i class="bi bi-cart-plus"></i> Beli Semua Rutinitas
+        </button>
+        <button class="btn btn-outline-secondary w-100" onclick="resetQuiz()">
+            <i class="bi bi-arrow-clockwise"></i> Ulangi Quiz
+        </button>
+    `;
+}
+
+function buyAllRoutine() {
+    alert('Semua produk rutinitas ditambahkan ke keranjang!');
+    // Add logic to add all products to cart
+}
+
+function resetQuiz() {
+    currentQuizStep = 0;
+    quizAnswers = {};
+    loadQuiz();
+}
+
+// Reviews
+function loadReviews() {
+    const list = document.getElementById('reviewsList');
+    
+    if (reviews.length === 0) {
+        list.innerHTML = `
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-chat-dots" style="font-size: 48px;"></i>
+                <p class="mt-3">Belum ada ulasan. Jadilah yang pertama!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    list.innerHTML = reviews.map(review => `
+        <div class="review-card">
+            <div class="review-header">
+                <div class="review-avatar">${review.userName.charAt(0)}</div>
+                <div class="flex-1">
+                    <h6 class="mb-0">${review.userName}</h6>
+                    <small class="text-muted">${review.productName}</small>
+                </div>
+            </div>
+            
+            <div class="mb-2">
+                <div class="rating-detail">
+                    <span>Tekstur:</span>
+                    <div class="rating-bar"><div class="rating-fill" style="width: ${review.texture * 20}%"></div></div>
+                    <span>${review.texture}/5</span>
+                </div>
+                <div class="rating-detail">
+                    <span>Efek:</span>
+                    <div class="rating-bar"><div class="rating-fill" style="width: ${review.effect * 20}%"></div></div>
+                    <span>${review.effect}/5</span>
+                </div>
+                <div class="rating-detail">
+                    <span>Aroma:</span>
+                    <div class="rating-bar"><div class="rating-fill" style="width: ${review.aroma * 20}%"></div></div>
+                    <span>${review.aroma}/5</span>
+                </div>
+            </div>
+            
+            <p class="mb-0">${review.text}</p>
+            <small class="text-muted">${review.date}</small>
+        </div>
+    `).join('');
+}
+
+function submitReview() {
+    const productId = parseInt(document.getElementById('reviewProduct').value);
+    const product = products[productId];
+    const texture = parseInt(document.querySelector('[data-rating="texture"] .bi-star-fill')?.dataset.value || 5);
+    const effect = parseInt(document.querySelector('[data-rating="effect"] .bi-star-fill')?.dataset.value || 5);
+    const aroma = parseInt(document.querySelector('[data-rating="aroma"] .bi-star-fill')?.dataset.value || 5);
+    const text = document.getElementById('reviewText').value;
+    
+    if (!text) {
+        alert('Mohon tulis ulasan Anda');
+        return;
+    }
+    
+    const review = {
+        userName: 'Green Care User',
+        productName: product.name,
+        texture,
+        effect,
+        aroma,
+        text,
+        date: new Date().toLocaleDateString('id-ID')
+    };
+    
+    reviews.unshift(review);
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+    
+    // Add points
+    userPoints += 50;
+    localStorage.setItem('userPoints', userPoints);
+    
+    bootstrap.Modal.getInstance(document.getElementById('addReviewModal')).hide();
+    loadReviews();
+    alert('Ulasan berhasil ditambahkan! +50 poin');
+}
+
+// Rating stars interaction
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.rating-stars')) {
+        const container = e.target.closest('.rating-stars');
+        const star = e.target;
+        if (star.classList.contains('bi-star')) {
+            const value = parseInt(star.dataset.value);
+            const stars = container.querySelectorAll('.bi-star');
+            stars.forEach((s, index) => {
+                if (index < value) {
+                    s.classList.remove('bi-star');
+                    s.classList.add('bi-star-fill');
+                } else {
+                    s.classList.remove('bi-star-fill');
+                    s.classList.add('bi-star');
+                }
+            });
+        }
+    }
+});
+
+// Transformations
+function loadTransformations() {
+    const gallery = document.getElementById('transformationGallery');
+    
+    if (transformations.length === 0) {
+        gallery.innerHTML = `
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-images" style="font-size: 48px;"></i>
+                <p class="mt-3">Belum ada transformasi. Upload milik Anda!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    gallery.innerHTML = transformations.map((trans, index) => `
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="before-after-container" id="baContainer${index}">
+                    <img src="${trans.before}" class="before-after-image" alt="Before">
+                    <img src="${trans.after}" class="before-after-image after-image" alt="After" id="afterImg${index}">
+                    <div class="slider-handle" id="slider${index}">
+                        <div class="slider-button">
+                            <i class="bi bi-arrows-expand"></i>
+                        </div>
+                    </div>
+                </div>
+                <h6 class="mt-3">${trans.duration} bulan transformasi</h6>
+                <p class="mb-0">${trans.story}</p>
+                <small class="text-muted">oleh ${trans.userName}</small>
+            </div>
+        </div>
+    `).join('');
+    
+    // Initialize sliders
+    transformations.forEach((_, index) => {
+        initBeforeAfterSlider(index);
+    });
+}
+
+function initBeforeAfterSlider(index) {
+    const container = document.getElementById(`baContainer${index}`);
+    const slider = document.getElementById(`slider${index}`);
+    const afterImg = document.getElementById(`afterImg${index}`);
+    
+    if (!container || !slider || !afterImg) return;
+    
+    let isDragging = false;
+    
+    const updateSlider = (x) => {
+        const rect = container.getBoundingClientRect();
+        const percentage = ((x - rect.left) / rect.width) * 100;
+        const clampedPercentage = Math.max(0, Math.min(100, percentage));
+        
+        slider.style.left = `${clampedPercentage}%`;
+        afterImg.style.clipPath = `inset(0 ${100 - clampedPercentage}% 0 0)`;
+    };
+    
+    slider.addEventListener('mousedown', () => isDragging = true);
+    slider.addEventListener('touchstart', () => isDragging = true);
+    
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) updateSlider(e.clientX);
+    });
+    
+    document.addEventListener('touchmove', (e) => {
+        if (isDragging) updateSlider(e.touches[0].clientX);
+    });
+    
+    document.addEventListener('mouseup', () => isDragging = false);
+    document.addEventListener('touchend', () => isDragging = false);
+}
+
+function submitTransformation() {
+    const beforeFile = document.getElementById('beforeImage').files[0];
+    const afterFile = document.getElementById('afterImage').files[0];
+    const story = document.getElementById('transformationStory').value;
+    const duration = document.getElementById('transformationDuration').value;
+    
+    if (!beforeFile || !afterFile || !story) {
+        alert('Mohon lengkapi semua data');
+        return;
+    }
+    
+    // Simulate file upload
+    const transformation = {
+        before: 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=400',
+        after: 'https://images.unsplash.com/photo-1614859324894-3e14b0b44834?w=400',
+        story,
+        duration,
+        userName: 'Green Care User'
+    };
+    
+    transformations.unshift(transformation);
+    localStorage.setItem('transformations', JSON.stringify(transformations));
+    
+    // Add points
+    userPoints += 100;
+    localStorage.setItem('userPoints', userPoints);
+    
+    bootstrap.Modal.getInstance(document.getElementById('addTransformationModal')).hide();
+    loadTransformations();
+    document.querySelector('[href="#galleryTab"]').click();
+    alert('Transformasi berhasil diupload! +100 poin');
+}
+
+// Profile
+function updateProfile() {
+    document.getElementById('userPoints').textContent = userPoints.toLocaleString('id-ID');
+    
+    let tier = 'Bronze Member';
+    if (userPoints >= 5000) tier = 'Diamond Member';
+    else if (userPoints >= 2500) tier = 'Platinum Member';
+    else if (userPoints >= 1500) tier = 'Gold Member';
+    else if (userPoints >= 500) tier = 'Silver Member';
+    
+    document.getElementById('tierBadge').textContent = tier;
+}
+
+function showWishlist() {
+    if (wishlist.length === 0) {
+        alert('Wishlist Anda kosong');
+        return;
+    }
+    
+    const wishlistProducts = products.filter(p => wishlist.includes(p.id));
+    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+    
+    document.getElementById('productModalTitle').textContent = 'Wishlist Saya';
+    document.getElementById('productModalBody').innerHTML = wishlistProducts.map(product => `
+        <div class="d-flex gap-3 mb-3 p-3 border rounded">
+            <img src="${product.image}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
+            <div class="flex-1">
+                <h6 class="mb-1">${product.name}</h6>
+                <div class="text-success fw-bold mb-2">Rp ${product.price.toLocaleString('id-ID')}</div>
+                <button class="btn btn-sm btn-primary-custom" onclick="addToCart(${product.id})">
+                    <i class="bi bi-cart-plus"></i> Tambah ke Keranjang
+                </button>
+            </div>
+        </div>
+    `).join('');
+    
+    modal.show();
+}
+
+// Journal
+function addJournalEntry() {
+    const entry = prompt('Catatan hari ini:');
+    if (entry) {
+        alert('Catatan berhasil ditambahkan!');
+        // Add to localStorage
+    }
+}
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        const swCode = `
+            const CACHE_NAME = 'greencare-v1';
+            const urlsToCache = ['/'];
+            
+            self.addEventListener('install', event => {
+                event.waitUntil(
+                    caches.open(CACHE_NAME)
+                        .then(cache => cache.addAll(urlsToCache))
+                );
+            });
+            
+            self.addEventListener('fetch', event => {
+                event.respondWith(
+                    caches.match(event.request)
+                        .then(response => response || fetch(event.request))
+                );
+            });
+        `;
+        
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        
+        navigator.serviceWorker.register(swUrl)
+            .then(() => console.log('SW registered'))
+            .catch(err => console.log('SW registration failed', err));
+    });
+}
+
+// Manifest
+const manifestData = {
+    name: 'Green Care',
+    short_name: 'GreenCare',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#ABE7B2',
+    theme_color: '#ABE7B2',
+    icons: [
+        {
+            src: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=192',
+            sizes: '192x192',
+            type: 'image/png'
+        },
+        {
+            src: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=512',
+            sizes: '512x512',
+            type: 'image/png'
+        }
+    ]
+};
+
+const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+const manifestURL = URL.createObjectURL(manifestBlob);
+document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+
+// Initialize App
+document.addEventListener('DOMContentLoaded', () => {
+    loadProducts();
+    updateCartBadge();
+    loadQuiz();
+    
+    // Animate header on load
+    anime({
+        targets: '.app-header',
+        opacity: [0, 1],
+        translateY: [-20, 0],
+        duration: 800,
+        easing: 'easeOutQuad'
+    });
+});
+
+// Add CSS for rating stars
+const style = document.createElement('style');
+style.textContent = `
+    .rating-stars {
+        display: flex;
+        gap: 5px;
+        font-size: 24px;
+        color: #ffc107;
+    }
+    .rating-stars .bi-star,
+    .rating-stars .bi-star-fill {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .rating-stars .bi-star:hover,
+    .rating-stars .bi-star-fill:hover {
+        transform: scale(1.2);
+    }
+`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
